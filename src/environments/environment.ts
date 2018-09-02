@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  config: {
+    apiKey: "AIzaSyDcCeQsiLsZrbE_5mDlpxKYr4jw9gPBQIU",
+    authDomain: "food2fork-ff1fa.firebaseapp.com",
+    databaseURL: "https://food2fork-ff1fa.firebaseio.com",
+    projectId: "food2fork-ff1fa",
+    storageBucket: "food2fork-ff1fa.appspot.com",
+    messagingSenderId: "32831381100"
+  }
 };
 
 /*

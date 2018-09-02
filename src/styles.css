@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.auth-card {
+  width: 50%;
+  margin: 0 auto;
+}
