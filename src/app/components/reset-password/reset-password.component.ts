@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-
+import { AuthService } from "../../services/auth.service";
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ResetModalComponent} from "../reset-modal/reset-modal.component";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -13,35 +14,30 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-reset-password',
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class ResetPasswordComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
   }
 
   email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', Validators.required);
 
   matcher = new MyErrorStateMatcher();
 
-  onLogin() {
-    this.auth.login(this.email.value, this.password.value)
-      .then(res => {
-        this.router.navigate(['/'])
-      })
-        .catch(err => {
-          console.log(err)
-        });
+  onReset() {
+    this.dialog.open(ResetModalComponent, {data: {name: 'Please check your email'}});
+    this.auth.resetPassword(this.email.value).then(res => {
 
+    })
   }
 
 }

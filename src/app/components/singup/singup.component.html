@@ -1,0 +1,26 @@
+<div class="container">
+  <mat-card class="auth-card">
+    <mat-card-title>Sing up</mat-card-title>
+    <form (ngSubmit)="onSingUp()">
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email" [formControl]="emailForm"  [errorStateMatcher]="matcher">
+          <mat-error *ngIf="emailForm.hasError('email') && !emailForm.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailForm.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input type="password" matInput placeholder="Password" [formControl]="passwordForm"  [errorStateMatcher]="matcher">
+          <mat-error *ngIf="passwordForm.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary">Sing up</button>
+      </mat-card-content>
+    </form>
+  </mat-card>
+  <!--/ card -->
+</div>

@@ -1,17 +1,32 @@
 <div class="container">
   <mat-card class="auth-card">
     <mat-card-title>Login</mat-card-title>
-    <form>
+    <form (ngSubmit)="onLogin()">
       <mat-card-content>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Email">
+          <input matInput placeholder="Email" [formControl]="email">
+          <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input type="password" matInput placeholder="Password">
+          <input type="password" matInput placeholder="Password" [formControl]="password" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="password.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <button type="submit" mat-raised-button color="primary">Login</button>
       </mat-card-content>
     </form>
+    <div>
+      <a routerLink="/reset-password">Reset password</a>
+    </div>
+    <div>
+      <a routerLink="/signup">Sign up</a>
+    </div>
   </mat-card>
   <!--/ card -->
 </div>
