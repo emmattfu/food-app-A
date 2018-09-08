@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-4 mb-3" *ngFor="let item of searchResult">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ item.title }}</mat-card-title>
+        <mat-card-subtitle>{{ item.publisher }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="item.image_url" [alt]="item.title">
+      <mat-card-actions>
+        <button mat-button>Подробней</button>
+        <button mat-button color="primary">Добавить в избранное</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

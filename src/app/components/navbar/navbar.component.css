@@ -1,0 +1,23 @@
+.nav .link,
+.logout-btn{
+  font-size: 14px;
+  color: rgba(255, 255, 255, .6);
+}
+
+.link + .link {
+  margin-left: 15px;
+}
+
+.nav .link:hover,
+.nav .link.active {
+  color: rgba(255, 255, 255, 1);
+}
+
+.logout-btn {
+  margin-left: auto;
+}
+
+.logout-btn:hover {
+  background-color: #6200C3;
+  color: rgba(255, 255, 255, 1);
+}

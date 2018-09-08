@@ -11,6 +11,10 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { AppRoutingModule } from "./app-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule  } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AngularFirestoreModule } from "angularfire2/firestore";
 
 // Components
 import { AppComponent } from './app.component';
@@ -24,11 +28,11 @@ import { ResetModalComponent } from './components/reset-modal/reset-modal.compon
 import { environment } from "../environments/environment";
 
 //Services
-import {AuthService} from "./services/auth.service";
-
-
-
-
+import { AuthService } from "./services/auth.service";
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SearchComponent } from './components/search/search.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import { FavouritesComponent } from './components/favourites/favourites.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import {AuthService} from "./services/auth.service";
     HomeComponent,
     SingupComponent,
     ResetPasswordComponent,
-    ResetModalComponent
+    ResetModalComponent,
+    NavbarComponent,
+    SearchComponent,
+    SearchResultComponent,
+    FavouritesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,11 @@ import {AuthService} from "./services/auth.service";
     AngularFireAuthModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule,
+    MatAutocompleteModule,
+    MatSlideToggleModule,
+    AngularFirestoreModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

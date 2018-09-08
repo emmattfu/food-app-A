@@ -11,7 +11,10 @@ export const environment = {
     projectId: "food2fork-ff1fa",
     storageBucket: "food2fork-ff1fa.appspot.com",
     messagingSenderId: "32831381100"
-  }
+  },
+  apiUrlFood2Fork: "http://food2fork.com/api",
+  apiKeyFood2Fork: "56c114c9ee24fd0e851e676502796410",
+  proxy: 'https://cors.io/?'
 };
 
 /*

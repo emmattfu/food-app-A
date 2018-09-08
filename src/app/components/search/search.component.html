@@ -1,0 +1,12 @@
+<div class="search-wrapper">
+  <mat-form-field class="w-100">
+    <input type="text" matInput placeholder="Поиск" [matAutocomplete]="history" [formControl]="searchControl">
+    <mat-autocomplete #history="matAutocomplete">
+      <mat-option *ngFor="let item of filteredOptions | async" [value]="item.name">
+        {{item.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onSearch()">Найти</button>
+  <mat-slide-toggle color="primary" class="ml-5" [(ngModel)]="saveSearch">Сохранить историю поиска</mat-slide-toggle>
+</div>
