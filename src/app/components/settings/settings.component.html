@@ -1,0 +1,27 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Настройки</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <div class="d-flex align-items-center w-100">
+            <span>Сохранять историю поиска:</span>
+            <mat-slide-toggle color="primary" class="ml-auto" [(ngModel)]="historyState" (change)="toggleHistoryState()"></mat-slide-toggle>
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <div class="d-flex align-items-center w-100">
+            <span>Язык приложения:</span>
+            <button class="ml-auto" mat-button [matMenuTriggerFor]="menu">{{ 'settings.switchLang' | translate }}</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="switchLanguage('ru')">Русский</button>
+              <button mat-menu-item (click)="switchLanguage('en')">English</button>
+            </mat-menu>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

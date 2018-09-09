@@ -13,7 +13,7 @@ export const environment = {
     messagingSenderId: "32831381100"
   },
   apiUrlFood2Fork: "http://food2fork.com/api",
-  apiKeyFood2Fork: "56c114c9ee24fd0e851e676502796410",
+  apiKeyFood2Fork: "91d5bc25699b0932a8e83d82a99aa8b5",
   proxy: 'https://cors.io/?'
 };
 

@@ -5,6 +5,7 @@ import { Observable } from "rxjs/index";
 import { map, startWith } from "rxjs/operators";
 import { DishPreview } from "../../models/DishPreview";
 import { SearchHistory } from "../../models/SearchHistory";
+import { SaveHistoryService } from "../../services/save-history.service";
 
 @Component({
   selector: 'app-search',
@@ -19,7 +20,8 @@ export class SearchComponent implements OnInit {
 
   @Output() getData: EventEmitter<any[]> = new EventEmitter();
   constructor(
-    private searchService: SearchService
+    private searchService: SearchService,
+    private saveHistoryService: SaveHistoryService
   ) { }
 
   ngOnInit() {
@@ -27,7 +29,8 @@ export class SearchComponent implements OnInit {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
-    )
+    );
+    this.saveHistoryService.historyState.subscribe(state => this.saveSearch = state)
   }
 
   onSearch() {

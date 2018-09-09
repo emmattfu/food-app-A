@@ -23,7 +23,7 @@ export class SearchService {
     private http: HttpClient,
     private afs: AngularFirestore
   ) {
-    this.searchHistory = this.afs.collection('search_history');
+    this.searchHistory = this.afs.collection<SearchHistory[]>('search_history');
   }
 
   getSearchHistory() {

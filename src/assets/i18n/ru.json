@@ -1,0 +1,18 @@
+{
+  "navbar": {
+    "homeLink": "Главная",
+    "favoritesLink": "Избранное",
+    "aboutLink": "О приложении",
+    "settingsLink": "Настройки",
+    "logout": "Выйти",
+    "shoppingListLink": "Список покупок"
+  },
+  "settings": {
+    "switchLang": "Изменить язык"
+  },
+  "login": {
+    "title": "Вход",
+    "noAccount": "Нет аккаунта?",
+    "forgotPassword": "Забыли пароль?"
+  }
+}

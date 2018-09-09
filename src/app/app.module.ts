@@ -16,7 +16,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AngularFirestoreModule } from "angularfire2/firestore";
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 
+// Helpers
+import { HttpLoaderFactory } from "./helpers/translateFactory";
 
 // Components
 import { AppComponent } from './app.component';
@@ -25,16 +30,22 @@ import { HomeComponent } from './components/home/home.component';
 import { SingupComponent } from './components/singup/singup.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ResetModalComponent } from './components/reset-modal/reset-modal.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SearchComponent } from './components/search/search.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
+import { FavouritesComponent } from './components/favourites/favourites.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { HttpClient } from "@angular/common/http";
+
 
 // Enviroment
 import { environment } from "../environments/environment";
 
 //Services
 import { AuthService } from "./services/auth.service";
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SearchComponent } from './components/search/search.component';
-import { SearchResultComponent } from './components/search-result/search-result.component';
-import { FavouritesComponent } from './components/favourites/favourites.component';
+import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +58,10 @@ import { FavouritesComponent } from './components/favourites/favourites.componen
     NavbarComponent,
     SearchComponent,
     SearchResultComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    SettingsComponent,
+    RecipeDetailsComponent,
+    ShoppingListComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +80,16 @@ import { FavouritesComponent } from './components/favourites/favourites.componen
     MatAutocompleteModule,
     MatSlideToggleModule,
     AngularFirestoreModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatListModule,
+    MatMenuModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

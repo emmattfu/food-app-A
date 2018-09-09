@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-4 mb-3" *ngFor="let item of searchResult">
+  <div class="col-4 mb-3" *ngFor="let item of showRecipe">
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{ item.title }}</mat-card-title>
@@ -7,9 +7,13 @@
       </mat-card-header>
       <img mat-card-image [src]="item.image_url" [alt]="item.title">
       <mat-card-actions>
-        <button mat-button>Подробней</button>
+        <button mat-button routerLink="/recipes/{{ item.recipe_id }}">Подробней</button>
         <button mat-button color="primary" (click)="addToFavourites(item)">Добавить в избранное</button>
       </mat-card-actions>
     </mat-card>
   </div>
+</div>
+<div class="row mt-5" >
+  <button mat-button *ngIf="currentPage !== 1" (click)="showPage(currentPage - 1)">Prev</button>
+  <button mat-button *ngIf="pages > 1 && currentPage !== pages" (click)="showPage(currentPage + 1)">Next</button>
 </div>

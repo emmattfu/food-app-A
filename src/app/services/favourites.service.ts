@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from "angularfire2/firestore";
+import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from "angularfire2/firestore";
 import { map } from "rxjs/internal/operators";
 import {DishPreview} from "../models/DishPreview";
-import {id} from "@firebase/storage/dist/src/implementation/backoff";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavouritesService {
-  private apiUrl = environment.apiUrlFood2Fork;
-  private apiKey = environment.apiKeyFood2Fork;
-  private proxy = environment.proxy;
   private favouriteRecipes: AngularFirestoreCollection;
-  itemDoc: AngularFirestoreDocument<DishPreview>;
 
   constructor(
     private http: HttpClient,
     private afs: AngularFirestore
   ) {
-    this.favouriteRecipes = this.afs.collection('favourites')
+    this.favouriteRecipes = this.afs.collection<DishPreview[]>('favourites')
   }
 
   getFavourites() {
@@ -34,11 +28,11 @@ export class FavouritesService {
     )
   }
 
-  saveFavourites(recipe) {
-    return this.favouriteRecipes.add(recipe);
+  saveFavourites(recipe: DishPreview) {
+    return this.favouriteRecipes.add(recipe)
   }
 
-  removeFromFavourites(id:string) {
+  removeFromFavourites(id:string): void {
     this.favouriteRecipes.doc(id).delete();
   }
 }
