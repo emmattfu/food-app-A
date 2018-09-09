@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import { FavouritesService } from "../../services/favourites.service";
 
 @Component({
   selector: 'app-search-result',
@@ -7,10 +8,15 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 })
 export class SearchResultComponent implements OnChanges {
   @Input('result') searchResult;
-  constructor() { }
+  constructor(
+    private favourites: FavouritesService
+  ) { }
 
   ngOnChanges() {
     console.log(this.searchResult);
   }
 
+  addToFavourites(recipe) {
+    this.favourites.saveFavourites(recipe);
+  }
 }

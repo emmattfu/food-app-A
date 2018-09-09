@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { AngularFirestore, AngularFirestoreCollection } from "angularfire2/firestore";
 import { map } from "rxjs/internal/operators";
+import { SearchHistory } from "../models/SearchHistory";
 
 interface SearchRequest {
   count: number;
@@ -37,18 +38,16 @@ export class SearchService {
   }
 
   saveSearchHistory(value) {
-    this.getSearchHistory().subscribe(res => {
-     if (res.every(element => element.name !== value)) {
+    this.getSearchHistory().subscribe((res: SearchHistory[]) => {
+     if (res.every((element: SearchHistory) => element.name !== value)) {
         return this.searchHistory.add({name: value, date: Date.now()});
       }
     });
   }
 
   searchRecipe(value: string) {
-    console.log(this.searchHistory);
     return this.http.get(`${this.proxy}${this.apiUrl}/search?key=${this.apiKey}&q=${value}`).pipe(
       map((res: SearchRequest): any[] => res.recipes)
     )
   }
-
 }

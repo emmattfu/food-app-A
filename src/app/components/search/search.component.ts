@@ -3,6 +3,8 @@ import { SearchService } from "../../services/search.service";
 import { FormControl } from "@angular/forms";
 import { Observable } from "rxjs/index";
 import { map, startWith } from "rxjs/operators";
+import { DishPreview } from "../../models/DishPreview";
+import { SearchHistory } from "../../models/SearchHistory";
 
 @Component({
   selector: 'app-search',
@@ -32,7 +34,7 @@ export class SearchComponent implements OnInit {
     if (this.saveSearch) {
       this.searchService.saveSearchHistory(this.searchControl.value);
     }
-    this.searchService.searchRecipe(this.searchControl.value).subscribe(res => {
+    this.searchService.searchRecipe(this.searchControl.value).subscribe((res: DishPreview[]) => {
       this.getData.emit(res);
     });
     this.searchControl.setValue('');

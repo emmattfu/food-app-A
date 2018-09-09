@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "angularfire2/auth";
-import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +7,7 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService {
 
   constructor(
-    private afauth: AngularFireAuth,
-    private http: HttpClient
+    private afauth: AngularFireAuth
   ) { }
 
   login(email, password): Promise<any> {
@@ -22,5 +20,9 @@ export class AuthService {
 
   resetPassword(email) {
     return this.afauth.auth.sendPasswordResetEmail(email)
+  }
+
+  logout() {
+    this.afauth.auth.signOut();
   }
 }
