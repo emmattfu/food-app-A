@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShoppingListService } from "../../services/shopping-list.service";
+import { ShoppingList, Ingredient } from "../../models/ShoppingList";
 
 @Component({
   selector: 'app-shopping-list',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-
-  constructor() { }
+  shoppingList = [];
+  constructor(
+    private shoppingListService: ShoppingListService
+  ) { }
 
   ngOnInit() {
+    this.shoppingListService.getShoppingList().subscribe((res: ShoppingList[]) => {
+      this.shoppingList = res;
+    })
   }
 
+  addToShoppingList(item: ShoppingList) {
+    this.shoppingListService.addToSHoppingList(item)
+  }
+
+  deleteItem(item: string, i: number) {
+    this.shoppingListService.deleteIngredient(item, i)
+  }
 }

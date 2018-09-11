@@ -9,7 +9,7 @@
           </mat-card-header>
           <img mat-card-image [src]="item.image_url" [alt]="item.title">
           <mat-card-actions>
-            <button mat-button>Подробней</button>
+            <button mat-button routerLink="/recipes/{{ item.recipe_id }}">Подробней</button>
             <button mat-button color="primary" (click)="onDelete(item.id)">Удалить из избранного</button>
           </mat-card-actions>
         </mat-card>
