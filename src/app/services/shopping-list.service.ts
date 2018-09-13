@@ -28,12 +28,24 @@ export class ShoppingListService {
     )
   }
 
-  addToSHoppingList(item: ShoppingList) {
+  addToSHoppingList(title: string, ingredients) {
+    let ingredientsArr = ingredients.map(ingredient => {
+      return {name: ingredient}
+    });
+    let item = {
+      title: title,
+      ingredients: ingredientsArr
+    };
    return this.shoppingListCollection.add(item);
   }
 
   deleteIngredient(id: string, i: number){
-    let doc = this.shoppingListCollection.doc(id)
+    this.shoppingListCollection.doc(id)
+
+    // return this.shoppingListCollection.snapshotChanges().pipe(
+    //   map(actions => actions.map( item => console.log(item)))
+    // )
 
   }
+
 }

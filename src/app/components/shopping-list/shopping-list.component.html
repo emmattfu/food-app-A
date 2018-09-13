@@ -1,19 +1,25 @@
 <div class="container">
-  <div class="col-4 mb-3" *ngFor="let item of shoppingList">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{ item.title }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <ul>
-          <li class="d-flex align-items-center justify-content-between" *ngFor="let ingredient of item.ingredients; let i = index">
-            <span>{{ ingredient.name }}</span>
-            <button mat-button (click)="deleteItem(item.id, i)">Удалить</button>
-          </li>
-        </ul>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Блюдо</th>
+      <th scope="col">Ингредиенты к покупке</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of shoppingList; let i = index">
+      <th scope="row">{{ (i + 1) }}</th>
+      <td>{{ item.title }}</td>
+      <td >
+        <div class="d-flex justify-content-between" *ngFor="let ingredientName of item.ingredients; let i = index">
+          <span >{{ ingredientName.name }}</span>
+          <i class="material-icons" (click)="deleteItem(item.id, i)">clear</i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 

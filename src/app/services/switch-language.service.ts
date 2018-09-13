@@ -12,7 +12,7 @@ export class SwitchLanguageService {
   }
 
   setDefaultLanguage() {
-    this.translateService.setDefaultLang(localStorage.getItem('lang' || 'ru'));
+    this.translateService.setDefaultLang(localStorage.getItem('lang') || 'ru');
   }
 
   switchLanguage(lang: string) {

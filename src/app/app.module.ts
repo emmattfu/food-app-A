@@ -10,7 +10,7 @@ import { FormsModule } from "@angular/forms";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { AppRoutingModule } from "./app-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
-import { MatDialogModule  } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -19,6 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 // Helpers
 import { HttpLoaderFactory } from "./helpers/translateFactory";
@@ -45,6 +46,7 @@ import { environment } from "../environments/environment";
 import { AuthService } from "./services/auth.service";
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { FavouritesModalComponent } from './components/favourites-modal/favourites-modal.component';
 
 
 @NgModule({
@@ -61,7 +63,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
     FavouritesComponent,
     SettingsComponent,
     RecipeDetailsComponent,
-    ShoppingListComponent
+    ShoppingListComponent,
+    FavouritesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -89,10 +92,11 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    MatIconModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],
-  entryComponents: [ResetModalComponent]
+  entryComponents: [ResetModalComponent,FavouritesModalComponent]
 })
 export class AppModule { }

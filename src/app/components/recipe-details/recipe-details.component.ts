@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { RecipeService } from "../../services/recipe.service";
 import { Recipe } from "../../models/Recipe";
 import {Observable} from "rxjs/internal/Observable";
+import { ShoppingListService } from "../../services/shopping-list.service";
 
 @Component({
   selector: 'app-recipe-details',
@@ -10,12 +11,15 @@ import {Observable} from "rxjs/internal/Observable";
   styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
+  selectedOptions: string;
+  ingredientstoBuy = [];
   id: string;
   recipe;
   ingredientsList: Observable<string[]>;
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private ShoppingListService: ShoppingListService
   ) { }
 
   ngOnInit() {
@@ -23,9 +27,18 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipeService.getRecipe(this.id).subscribe(({recipe: r}:Recipe) => {
       this.recipe = r;
       this.ingredientsList = new Observable(observer => {
-        observer.next(r.ingredients);
+        observer.next(this.recipe.ingredients);
       });
     })
+  }
+
+  addItemToShoppingList(ingredient) {
+    let ingredientString = ingredient.join('');
+    this.ingredientstoBuy.push(ingredientString);
+  }
+
+  addToShoppingList(title:string) {
+    this.ShoppingListService.addToSHoppingList(title, this.ingredientstoBuy)
   }
 
 }

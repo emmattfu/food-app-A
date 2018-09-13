@@ -19,9 +19,6 @@ export class ShoppingListComponent implements OnInit {
     })
   }
 
-  addToShoppingList(item: ShoppingList) {
-    this.shoppingListService.addToSHoppingList(item)
-  }
 
   deleteItem(item: string, i: number) {
     this.shoppingListService.deleteIngredient(item, i)

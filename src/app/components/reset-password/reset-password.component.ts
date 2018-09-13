@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from "../../services/auth.service";
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog } from '@angular/material';
 import {ResetModalComponent} from "../reset-modal/reset-modal.component";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
