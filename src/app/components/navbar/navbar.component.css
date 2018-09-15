@@ -2,6 +2,7 @@
 .logout-btn{
   font-size: 14px;
   color: rgba(255, 255, 255, .6);
+  text-decoration: none;
 }
 
 .link + .link {
@@ -20,4 +21,9 @@
 .logout-btn:hover {
   background-color: #6200C3;
   color: rgba(255, 255, 255, 1);
+}
+
+.forkify {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
 }

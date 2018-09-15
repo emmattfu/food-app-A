@@ -10,6 +10,8 @@ import { SwitchLanguageService } from "../../services/switch-language.service";
 })
 export class NavbarComponent implements OnInit {
 
+  user;
+
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -17,12 +19,16 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.switchLanguageService.setDefaultLanguage()
+    this.switchLanguageService.setDefaultLanguage();
+    this.auth.userLoginEvent.subscribe((res: string) => {
+      this.user = res
+    });
   }
 
 
   onLogout () {
     this.auth.logout();
     this.router.navigate(['login']);
+    this.user = '';
   }
 }

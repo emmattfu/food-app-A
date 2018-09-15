@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
-import { Router } from "@angular/router";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -21,11 +20,11 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private auth: AuthService,
-    private router: Router
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
+
   }
 
   email = new FormControl('', [Validators.required, Validators.email]);
@@ -34,14 +33,7 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   onLogin() {
-    this.auth.login(this.email.value, this.password.value)
-      .then(res => {
-        this.router.navigate(['/'])
-      })
-        .catch(err => {
-          console.log(err)
-        });
-
+    this.auth.login(this.email.value, this.password.value);
   }
 
 }

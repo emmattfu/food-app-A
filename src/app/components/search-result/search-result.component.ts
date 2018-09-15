@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import { FavouritesService } from "../../services/favourites.service";
 import { DishPreview } from "../../models/DishPreview";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-search-result',
@@ -16,12 +17,15 @@ export class SearchResultComponent implements OnChanges {
   pages = 0;
 
   constructor(
-    private favourites: FavouritesService
+    private favourites: FavouritesService,
+    private toastr: ToastrService
   ) { }
 
   ngOnChanges() {
     this.pages = Math.ceil(this.searchResult.length / this.recipePerPage);
     this.showPage();
+
+    this.favourites.favouriteEvent.subscribe(res => console.log(res))
   }
 
   showPage(page: number = 1) {
@@ -32,6 +36,7 @@ export class SearchResultComponent implements OnChanges {
   }
 
   addToFavourites(recipe: DishPreview) {
-    this.favourites.saveFavourites(recipe);
+    this.favourites.saveFavourites(recipe).then(data => this.toastr.success('Рецепт добавлен в избранное', 'Успех'));
+
   }
 }

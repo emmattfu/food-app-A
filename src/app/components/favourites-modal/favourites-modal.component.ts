@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
@@ -8,6 +8,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 })
 export class FavouritesModalComponent implements OnInit {
 
+  @Output() isConfirmed: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(
     public dialogRef: MatDialogRef<FavouritesModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -16,6 +18,9 @@ export class FavouritesModalComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClick(unswear: boolean) {
+    this.dialogRef.close(unswear)
+  }
 
   close(): void {
     this.dialogRef.close();

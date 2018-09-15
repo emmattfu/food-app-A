@@ -20,7 +20,7 @@ export class ShoppingListComponent implements OnInit {
   }
 
 
-  deleteItem(item: string, i: number) {
-    this.shoppingListService.deleteIngredient(item, i)
+  deleteItem(item: string, i: number): void {
+    this.shoppingListService.deleteIngredient(item, i);
   }
 }

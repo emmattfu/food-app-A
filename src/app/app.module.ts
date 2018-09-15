@@ -20,6 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { ToastrModule } from 'ngx-toastr';
 
 // Helpers
 import { HttpLoaderFactory } from "./helpers/translateFactory";
@@ -37,6 +38,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { FavouritesComponent } from './components/favourites/favourites.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { HttpClient } from "@angular/common/http";
+import { AuthGuard } from "./guards/auth.guard";
 
 
 // Enviroment
@@ -47,6 +49,7 @@ import { AuthService } from "./services/auth.service";
 import { RecipeDetailsComponent } from './components/recipe-details/recipe-details.component';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { FavouritesModalComponent } from './components/favourites-modal/favourites-modal.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -64,7 +67,8 @@ import { FavouritesModalComponent } from './components/favourites-modal/favourit
     SettingsComponent,
     RecipeDetailsComponent,
     ShoppingListComponent,
-    FavouritesModalComponent
+    FavouritesModalComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -93,9 +97,14 @@ import { FavouritesModalComponent } from './components/favourites-modal/favourit
         deps: [HttpClient]
       }
     }),
-    MatIconModule
+    MatIconModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ResetModalComponent,FavouritesModalComponent]
 })

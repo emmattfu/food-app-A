@@ -3,6 +3,7 @@ import { FavouritesService } from "../../services/favourites.service";
 import { NgxSpinnerService } from 'ngx-spinner';
 import {MatDialog} from "@angular/material";
 import {FavouritesModalComponent} from "../favourites-modal/favourites-modal.component";
+import {DishPreview} from "../../models/DishPreview";
 
 
 @Component({
@@ -12,7 +13,6 @@ import {FavouritesModalComponent} from "../favourites-modal/favourites-modal.com
 })
 export class FavouritesComponent implements OnInit {
   favouriteRecipes: any[];
-  isDelete: boolean = false;
 
   constructor(
     private favouriteService: FavouritesService,
@@ -22,21 +22,22 @@ export class FavouritesComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.favouriteService.getFavourites().subscribe((res) => {
+    this.favouriteService.getFavourites().subscribe((res: DishPreview[]) => {
       this.favouriteRecipes = res;
       this.spinner.hide();
     }, err => {
       console.log(err);
       this.spinner.hide();
-    })
+    });
+
   }
 
-  onDelete(id:string) {
-    this.dialog.open(FavouritesModalComponent).afterClosed()
 
-    // if (result.afterOpen()) {
-    //   this.favouriteService.removeFromFavourites(id);
-    // }
+
+  onDelete(id:string) {
+    this.dialog.open(FavouritesModalComponent).afterClosed().subscribe((res: boolean) => {
+      if (res) this.favouriteService.removeFromFavourites(id);
+    })
 
   }
 }
