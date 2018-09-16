@@ -7,7 +7,8 @@
             <mat-card-title>{{ recipe?.title }}</mat-card-title>
             <mat-card-subtitle>{{ recipe?.publisher }}</mat-card-subtitle>
           </div>
-          <button mat-button color="primary" class="ml-auto" (click)="addToFavourites(recipe)">Добавить в избранное</button>
+          <button mat-button color="primary" class="ml-auto" *ngIf="!isFavourite" (click)="addToFavourites(recipe)">Добавить в избранное</button>
+          <button mat-button color="primary" class="ml-auto" *ngIf="isFavourite" (click)="removeFromFavourites(favouriteRecipe.id)">Удалить из избранного</button>
         </mat-card-header>
         <img mat-card-image *ngIf="recipe" [src]="recipe?.image_url" [alt]="recipe?.title">
         <mat-selection-list #list [(ngModel)]="selectedOptions" (ngModelChange)="addItemToShoppingList($event)">

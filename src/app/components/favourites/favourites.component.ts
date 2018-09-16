@@ -23,6 +23,7 @@ export class FavouritesComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.favouriteService.getFavourites().subscribe((res: DishPreview[]) => {
+      console.log(res);
       this.favouriteRecipes = res;
       this.spinner.hide();
     }, err => {

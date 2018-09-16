@@ -15,8 +15,9 @@ import { FavouritesService } from "../../services/favourites.service";
   styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-  favourite;
-  isFavourite: boolean;
+  favouriteRecipes;
+  favouriteRecipe;
+  isFavourite: boolean = false;
   selectedOptions: string;
   ingredientstoBuy = [];
   id: string;
@@ -40,6 +41,15 @@ export class RecipeDetailsComponent implements OnInit {
         observer.next(this.recipe.ingredients);
         this.spinner.hide();
       });
+      this.favourites.favouritesEvent.subscribe((res:DishPreview[]) => {
+        this.favouriteRecipes = res;
+        for (let i = 0; i < res.length; i++) {
+          if (res[i].title === this.recipe.title) {
+            this.isFavourite = true;
+            this.favouriteRecipe = res[i]
+          }
+        }
+      })
     }, err => {
       this.toastr.error(err);
       this.spinner.hide();
@@ -55,11 +65,30 @@ export class RecipeDetailsComponent implements OnInit {
     this.ShoppingListService.addToSHoppingList(title, this.ingredientstoBuy);
   }
 
-  addToFavourites(recipe: DishPreview) {
-    this.favourites.saveFavourites(recipe).then(data => {
+  addToFavourites(recipeToAdd: DishPreview) {
+    recipeToAdd.isFavourite = true;
+    this.favourites.saveFavourites(recipeToAdd).then(data => {
       this.toastr.success('Рецепт добавлен в избранное', 'Успех')
     }).catch((err) => {
       this.toastr.error(err)
     });
+    this.favouriteRecipes.push(recipeToAdd);
+    this.favourites.emitFavouriteEvent(this.favouriteRecipes)
+  }
+
+  removeFromFavourites(id:string): void {
+    this.favourites.removeFromFavourites(id);
   }
 }
+
+
+
+
+// this.favourites.getFavourites().subscribe((res:DishPreview[]) => {
+//   for (let i = 0; i < res.length; i++) {
+//     if (res[i].title === this.recipe.title) {
+//       this.isFavourite = true;
+//       this.favouriteRecipe = res[i]
+//     }
+//   }
+// })

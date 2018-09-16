@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.searchService.getSearchHistory().subscribe(res => this.searchHistory = res);
+    this.searchService.getSearchHistory().subscribe((res: SearchHistory[]) => this.searchHistory = res);
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))

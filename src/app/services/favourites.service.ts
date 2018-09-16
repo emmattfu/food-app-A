@@ -3,12 +3,15 @@ import { HttpClient } from "@angular/common/http";
 import { AngularFirestore, AngularFirestoreCollection } from "angularfire2/firestore";
 import { map } from "rxjs/internal/operators";
 import {DishPreview} from "../models/DishPreview";
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FavouritesService {
   private favouriteRecipes: AngularFirestoreCollection;
+  private _favourite = new BehaviorSubject<any[]>([]);
+  public favouritesEvent = this._favourite.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -34,5 +37,9 @@ export class FavouritesService {
 
   removeFromFavourites(id:string): void {
     this.favouriteRecipes.doc(id).delete();
+  }
+
+  emitFavouriteEvent(recipe: DishPreview[]) {
+    this._favourite.next(recipe);
   }
 }
