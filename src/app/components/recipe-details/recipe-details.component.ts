@@ -4,8 +4,10 @@ import { RecipeService } from "../../services/recipe.service";
 import { Recipe } from "../../models/Recipe";
 import { Observable } from "rxjs/internal/Observable";
 import { ShoppingListService } from "../../services/shopping-list.service";
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { DishPreview } from "../../models/DishPreview";
 import { FavouritesService } from "../../services/favourites.service";
-import {DishPreview} from "../../models/DishPreview";
 
 @Component({
   selector: 'app-recipe-details',
@@ -24,18 +26,24 @@ export class RecipeDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private ShoppingListService: ShoppingListService,
-    private favouriteService: FavouritesService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
+    private favourites: FavouritesService
   ) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.id = this.route.snapshot.params['id'];
     this.recipeService.getRecipe(this.id).subscribe(({recipe: r}:Recipe) => {
       this.recipe = r;
       this.ingredientsList = new Observable(observer => {
         observer.next(this.recipe.ingredients);
+        this.spinner.hide();
       });
+    }, err => {
+      this.toastr.error(err);
+      this.spinner.hide();
     });
-    this.favouriteService.favouriteEvent.subscribe(res => console.log(res))
   }
 
   addItemToShoppingList(ingredient) {
@@ -45,7 +53,13 @@ export class RecipeDetailsComponent implements OnInit {
 
   addToShoppingList(title:string) {
     this.ShoppingListService.addToSHoppingList(title, this.ingredientstoBuy);
-    this.favouriteService.newFavourites(title);
   }
 
+  addToFavourites(recipe: DishPreview) {
+    this.favourites.saveFavourites(recipe).then(data => {
+      this.toastr.success('Рецепт добавлен в избранное', 'Успех')
+    }).catch((err) => {
+      this.toastr.error(err)
+    });
+  }
 }

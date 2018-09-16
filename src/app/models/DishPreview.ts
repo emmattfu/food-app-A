@@ -1,4 +1,5 @@
 export interface DishPreview {
+  isFavourite?: boolean
   id: string;
   f2f_url: string;
   image_url: string;

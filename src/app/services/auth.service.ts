@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "angularfire2/auth";
 import { Router } from "@angular/router";
-import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class AuthService {
 
   constructor(
     private afauth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
 
   }
@@ -32,6 +34,8 @@ export class AuthService {
       this.userId = user.user.uid;
       this.router.navigate(['/']);
       return true
+    }, err => {
+      this.toastr.error(err)
     })
   }
 

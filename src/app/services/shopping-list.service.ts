@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { AngularFirestore, AngularFirestoreCollection } from "angularfire2/firestore";
 import { map } from "rxjs/internal/operators";
-import { ShoppingList, Ingredient} from "../models/ShoppingList";
-import { firebase} from "@firebase/app/dist/index.node";
+import {Ingredient, ShoppingList} from "../models/ShoppingList";
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,8 @@ export class ShoppingListService {
     )
   }
 
-  addToSHoppingList(title: string, ingredients) {
-    let ingredientsArr = ingredients.map(ingredient => {
+  addToSHoppingList(title: string, ingredients: string[]) {
+    let ingredientsArr = ingredients.map((ingredient: string) => {
       return {name: ingredient}
     });
     let item = {
@@ -39,23 +39,13 @@ export class ShoppingListService {
    return this.shoppingListCollection.add(item);
   }
 
-  deleteIngredient(id: string, i: number) {
-    let item = this.shoppingListCollection.doc(id).snapshotChanges().subscribe(res => {
-      let mill = res.payload.data();
-      for (let ingredient in mill) {
-       console.log(mill[ingredient][i])
-      }
-    })
-
-    // item.update({
-    //   ingredients:
-    // })
-
-    // return this.shoppingListCollection.snapshotChanges().pipe(
-    //   map(actions => actions.map( item => console.log(item)))
-    // )
-
-
-
+  deleteIngredient(ingredientsList: Ingredient[], id: string) {
+    if (!ingredientsList.length) {
+      this.shoppingListCollection.doc(id).delete();
+    } else {
+      this.shoppingListCollection.doc(id).update({
+        ingredients: ingredientsList
+      })
+    }
   }
 }

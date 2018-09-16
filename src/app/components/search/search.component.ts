@@ -6,6 +6,8 @@ import { map, startWith } from "rxjs/operators";
 import { DishPreview } from "../../models/DishPreview";
 import { SearchHistory } from "../../models/SearchHistory";
 import { SaveHistoryService } from "../../services/save-history.service";
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search',
@@ -21,7 +23,9 @@ export class SearchComponent implements OnInit {
   @Output() getData: EventEmitter<any[]> = new EventEmitter();
   constructor(
     private searchService: SearchService,
-    private saveHistoryService: SaveHistoryService
+    private saveHistoryService: SaveHistoryService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -34,13 +38,19 @@ export class SearchComponent implements OnInit {
   }
 
   onSearch() {
+    this.spinner.show();
     if (this.saveSearch) {
       this.searchService.saveSearchHistory(this.searchControl.value);
     }
     this.searchService.searchRecipe(this.searchControl.value).subscribe((res: DishPreview[]) => {
       this.getData.emit(res);
+      this.spinner.hide();
+    }, err =>{
+      this.toastr.error(err);
+      this.spinner.hide();
     });
     this.searchControl.setValue('');
+
   }
 
   private _filter(value: string) {

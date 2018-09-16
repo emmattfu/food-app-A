@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../services/auth.service";
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit() {
@@ -33,7 +35,9 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   onLogin() {
+    this.spinner.show();
     this.auth.login(this.email.value, this.password.value);
+    this.spinner.hide();
   }
 
 }

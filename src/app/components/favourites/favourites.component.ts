@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FavouritesService } from "../../services/favourites.service";
 import { NgxSpinnerService } from 'ngx-spinner';
-import {MatDialog} from "@angular/material";
-import {FavouritesModalComponent} from "../favourites-modal/favourites-modal.component";
-import {DishPreview} from "../../models/DishPreview";
+import { MatDialog } from "@angular/material";
+import { FavouritesModalComponent } from "../favourites-modal/favourites-modal.component";
+import { DishPreview } from "../../models/DishPreview";
 
 
 @Component({
@@ -32,13 +32,10 @@ export class FavouritesComponent implements OnInit {
 
   }
 
-
-
   onDelete(id:string) {
     this.dialog.open(FavouritesModalComponent).afterClosed().subscribe((res: boolean) => {
       if (res) this.favouriteService.removeFromFavourites(id);
     })
-
   }
 }
 

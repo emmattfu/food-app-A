@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import { FavouritesService } from "../../services/favourites.service";
 import { DishPreview } from "../../models/DishPreview";
 import { ToastrService } from "ngx-toastr";
@@ -24,8 +24,6 @@ export class SearchResultComponent implements OnChanges {
   ngOnChanges() {
     this.pages = Math.ceil(this.searchResult.length / this.recipePerPage);
     this.showPage();
-
-    this.favourites.favouriteEvent.subscribe(res => console.log(res))
   }
 
   showPage(page: number = 1) {
@@ -36,7 +34,10 @@ export class SearchResultComponent implements OnChanges {
   }
 
   addToFavourites(recipe: DishPreview) {
-    this.favourites.saveFavourites(recipe).then(data => this.toastr.success('Рецепт добавлен в избранное', 'Успех'));
-
+    this.favourites.saveFavourites(recipe).then(data => {
+      this.toastr.success('Рецепт добавлен в избранное', 'Успех')
+    }).catch((err) => {
+      this.toastr.error(err)
+    });
   }
 }

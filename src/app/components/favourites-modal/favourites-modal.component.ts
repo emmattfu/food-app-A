@@ -18,11 +18,8 @@ export class FavouritesModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick(unswear: boolean) {
-    this.dialogRef.close(unswear)
+  onClick(answer: boolean) {
+    this.dialogRef.close(answer)
   }
 
-  close(): void {
-    this.dialogRef.close();
-  }
 }
