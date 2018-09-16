@@ -51,7 +51,6 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { FavouritesModalComponent } from './components/favourites-modal/favourites-modal.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
